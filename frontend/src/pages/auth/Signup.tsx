@@ -9,6 +9,7 @@ import { BACKEND_URL } from "../../config"
 import { useNavigate } from "react-router-dom"
 import LoginButton from "../../components/ui/LoginButton"
 import { useAuth } from "../other/AuthProvider"
+import { toast } from "sonner"
 
 const Signup = () => {
     const [username, setUsername] = useState("")
@@ -39,6 +40,7 @@ const Signup = () => {
                             // console.log(response.data.token)
                             localStorage.setItem("token", response.data.token)
                             login()
+                            toast.success("Signed up successfully")
                             if(email && password){
                                 navigate('/brain')
                             }

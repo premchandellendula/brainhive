@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom"
 import axios from "axios"
 import { BACKEND_URL } from "../../config"
 import { useAuth } from "../other/AuthProvider"
+import { toast } from "sonner"
 
 const Signin = () => {
     const [email, setEmail] = useState("")
@@ -36,7 +37,7 @@ const Signin = () => {
                             })
                             login()
                             localStorage.setItem("token", response.data.token)
-
+                            toast.success("Signed in successfully")
                             if(email && password){
                                 navigate("/brain")
                             }
