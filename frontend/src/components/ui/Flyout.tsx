@@ -3,6 +3,7 @@ import ExitIcon from "../icons/ExitIcon"
 import { useAuth } from "../../pages/other/AuthProvider";
 import axios from "axios";
 import { BACKEND_URL } from "../../config";
+import { toast } from "sonner";
 
 interface IFlyout {
     setIsFlyoutOpen: (value: boolean) => void
@@ -51,11 +52,16 @@ const Flyout = (props: IFlyout) => {
                 {loading ? (
                     <div className="h-3 bg-gray-300 rounded animate-pulse mx-auto w-20" />
                 ) : (
-                    username
+                    username ? username : "username"
                 )}
             </p>
             <hr className="border-blue-300 mb-2" />
-            <div onClick={() => logout()} className="flex justify-between items-center mt-1 hover:bg-blue-200 px-2 py-1 rounded-md cursor-pointer transition-colors">
+            <div onClick={() => {
+                logout()
+                toast.success("Logout successful")
+                }} 
+                
+                className="flex justify-between items-center mt-1 hover:bg-blue-200 px-2 py-1 rounded-md cursor-pointer transition-colors">
                 <ExitIcon />
                 <span className="text-sm font-medium">Logout</span>
             </div>

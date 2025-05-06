@@ -32,7 +32,7 @@ const AuthProvider: React.FC<MyComponentProps> = ({children}) => {
 
     const logout = () => {
         localStorage.removeItem("auth")
-        localStorage.removeItem("auth")
+        localStorage.removeItem("token")
         setIsAuthenticated(false)
         navigate('/')
     }
