@@ -1,4 +1,3 @@
-import { Tweet } from "react-tweet";
 import Share from "../icons/Share"
 import Trash from "../icons/Trash"
 import TweetIcon from "../icons/TweetIcon";
@@ -6,6 +5,11 @@ import VideoIcon from "../icons/VideoIcon";
 import DocIcon from "../icons/DocIcon";
 import LinkIcon from "../icons/LinkIcon";
 import axios from "axios";
+import { toast } from "sonner";
+import TweetCard from "./TweetCard";
+import VideoCard from "./VideoCard";
+import DocCard from "./DocCard";
+import LinkCard from "./LinkCard";
 
 interface ITags {
     title: string
@@ -16,10 +20,12 @@ interface ICard {
     type: "Tweet" | "Document" | "Video" | "Link";
     tags: ITags[],
     link: string,
-    title: string
+    title: string,
+    fetchContent: () => void
 }
 
 const BrainCard = (props: ICard) => {
+
     const renderContent = {
         Tweet: <TweetCard link={props.link }  />,
         Document: <DocCard link={props.link}  />,
@@ -35,7 +41,19 @@ const BrainCard = (props: ICard) => {
     }[props.type]
 
     const deleteContent = async (id: string) => {
-        const response = await axios.delete(`http://localhost:3000/api/v1/content/${id}`)
+        try{
+
+            await axios.delete(`http://localhost:3000/api/v1/content/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                }
+            })
+            props.fetchContent()
+            toast.success("Deleted the content successfully")
+        }catch(err){
+            console.log("Error deleting the content: ", err)
+            toast.error("Error deleting the content")
+        }
     }
     return (
         <div className="rounded-lg shadow-lg w-full p-4 border border-gray-200">
@@ -72,56 +90,3 @@ const BrainCard = (props: ICard) => {
 }
 
 export default BrainCard
-
-interface ITweetProps {
-    link: string
-}
-
-function TweetCard(props: ITweetProps){
-    const id = props.link.split("/status/")[1]
-    return (
-        <Tweet id={id} />
-    )
-}
-
-interface IVideoProps {
-    link: string
-}
-
-function VideoCard(props: IVideoProps){
-    const id = props.link.split("?v=")[1]
-    console.log(id)
-    return (
-        <iframe className="w-full" src={`https://www.youtube.com/embed/${id}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
-    )
-}
-
-interface IDocProps {
-    link: string
-}
-
-function DocCard(props: IDocProps){
-    return (
-        <iframe src={props.link} width="100%" height="400" frameBorder="0" allowFullScreen />
-    )
-}
-
-interface ILinkProps {
-    link: string,
-    title: string
-}
-
-function LinkCard(props: ILinkProps){
-    return (
-        <a
-            href={props.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block max-w-[300px] max-h-[250px] overflow-hidden border rounded-lg p-3 bg-gray-50 hover:bg-gray-100 transition"
-        >
-            <div className="font-semibold text-blue-700 truncate">
-            {props.title}
-            </div>
-        </a>
-    )
-}

@@ -45,7 +45,7 @@ const contentSchema = new mongoose.Schema<IContent>({
     },
     type: {
         type: String,
-        enum: ["Video", "Document", "Article", "Tweet"],
+        enum: ["Video", "Document", "Link", "Tweet"],
         required: true
     },
     title: {
