@@ -7,16 +7,16 @@ import InputBox from "../ui/InputBox"
 import Select from "../ui/Select"
 import { toast } from "sonner"
 import Profile from "./Profile"
+import axios from "axios"
+import { BACKEND_URL } from "../../config"
 
-const TopBar = () => {
+const TopBar = ({fetchContent}: {fetchContent: () => void}) => {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [tags, setTags] = useState("")
     const [type, setType] = useState("")
     const [url, setUrl] = useState("")
     const [title, setTitle] = useState("")
-    const addContent = async () => {
-
-    }
+    
     return (
         <div className="flex justify-between">
             <h2 className="text-2xl font-bold">All Notes</h2>
@@ -42,9 +42,29 @@ const TopBar = () => {
                             <InputBox label="Title" placeholder="Title" onChange={(e) => setTitle(e.target.value)} />
                             <Select onChange={(e) => setType(e.target.value)} />
                             <InputBox label="Tags" placeholder="Cricket, Productivity" onChange={(e) => setTags(e.target.value)} />
-                            <button onClick={() => {
+                            <button onClick={async () => {
                                 if(!type || !title || !url || !tags){
                                     toast.warning("Please fill all the values")
+                                }
+
+                                try{
+                                    await axios.post(`${BACKEND_URL}/content`, {
+                                        title,
+                                        link: url,
+                                        type,
+                                        tags: tags.split(", ")
+                                    }, {
+                                        headers: {
+                                            Authorization: `Bearer ${localStorage.getItem("token")}`
+                                        }
+                                    })
+                                    
+                                    setIsDialogOpen(false)
+                                    fetchContent()
+                                    toast.success("Content added successfully")
+                                }catch(err){
+                                    console.log("Error adding the content: ", err)
+                                    toast.error("Error adding the content")
                                 }
                             }} className="w-full p-2 bg-black text-white rounded-md mt-3 cursor-pointer">Add</button>
                         </div>
