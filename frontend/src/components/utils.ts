@@ -7,5 +7,8 @@ export interface ICard {
     type: "Tweet" | "Document" | "Video" | "Link";
     tags: ITags[],
     link: string,
-    title: string
+    title: string,
+    userId: string,
+    createdAt: string,
+    updatedAt: string
 }

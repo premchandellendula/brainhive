@@ -10,6 +10,7 @@ import TweetCard from "./TweetCard";
 import VideoCard from "./VideoCard";
 import DocCard from "./DocCard";
 import LinkCard from "./LinkCard";
+import { getDate } from "../../pages/other/date";
 
 interface ITags {
     title: string
@@ -21,7 +22,8 @@ interface ICard {
     tags: ITags[],
     link: string,
     title: string,
-    fetchContent: () => void
+    fetchContent: () => void,
+    createdAt: string
 }
 
 const BrainCard = (props: ICard) => {
@@ -83,7 +85,7 @@ const BrainCard = (props: ICard) => {
                 }
             </div>
             <div className="text-gray-400 font-normal text-base">
-                Added on 30/04/2025
+                Added on {getDate(props.createdAt)}
             </div>
         </div>
     )

@@ -56,8 +56,17 @@ router.post("/", authMiddleware, async (req: Request, res: Response) => {
 })
 
 router.get('/', async (req: Request, res: Response) => {
+    const { type } = req.query
     try{
-        const content = await Content.find()
+        const filter: any = {};
+
+        if (type) {
+            const formattedType = String(type).toLowerCase().slice(0, -1);
+            const capitalizedType = formattedType.charAt(0).toUpperCase() + formattedType.slice(1);
+            filter.type = capitalizedType;
+        }
+
+        const content = await Content.find(filter)
                                         .populate("tags")
                                         .populate("userId", "username")
 

@@ -1,4 +1,5 @@
 // import { useState } from "react"
+import AllDocsIcon from "../icons/AllDocsIcon"
 import Brain from "../icons/BrainIcon"
 import DocIcon from "../icons/DocIcon"
 import HashIcon from "../icons/HashIcon"
@@ -8,11 +9,17 @@ import VideoIcon from "../icons/VideoIcon"
 import ListItem from "./ListItem"
 // import SidebarButton from "../ui/SidebarButton"
 
-const SideBar = () => {
+interface ISiderBar {
+    selectedType: string,
+    setSelectedType: (type: string) => void
+}
+
+const SideBar = ({selectedType, setSelectedType}: ISiderBar) => {
     // const [isOpen, setIsOpen] = useState(false)
     const listItems = [
+        {title: "All", icon: <AllDocsIcon />},
         {title: "Tweets", icon: <TweetIcon />},
-        {title: "Vides", icon: <VideoIcon />},
+        {title: "Videos", icon: <VideoIcon />},
         {title: "Documents", icon: <DocIcon />},
         {title: "Links", icon: <LinkIcon />},
         {title: "Tags", icon: <HashIcon />},
@@ -26,7 +33,11 @@ const SideBar = () => {
             </div>
 
             <div className="mt-4">
-                {listItems.map((item, idx) => <ListItem key={idx} icon={item.icon} title={item.title} />)}
+                {listItems.map((item, idx) => (
+                    <div key={idx} onClick={() => setSelectedType(item.title)}>
+                        <ListItem icon={item.icon} title={item.title} active={selectedType === item.title} />
+                    </div>
+                ))}
             </div>
         </div>
     )
