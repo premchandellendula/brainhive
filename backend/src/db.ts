@@ -76,6 +76,7 @@ const tagSchema = new mongoose.Schema<ITag>({
 
 interface ILink extends Document {
     hash: string,
+    type: string,
     userId: mongoose.Types.ObjectId
 }
 
