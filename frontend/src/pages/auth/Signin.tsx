@@ -22,7 +22,7 @@ const Signin = () => {
             <Appbar />
             
             <div className="flex justify-center items-center h-screen">
-                <div className="p-6 w-96 rounded-md border border-gray-200 shadow-lg">
+                <div className="p-6 w-80 md:w-96 rounded-md border border-gray-200 shadow-lg">
                     <Heading label={"Sign in to your account"} />
                     <InputBox label={"Email"} placeholder={"johndoe@gmail.com"} onChange={(e) => setEmail(e.target.value)} />
                     <PasswordInputBox label={"Password"} placeholder={"1234abcd"} onChange={(e) => setPassword(e.target.value)} />

@@ -6,7 +6,7 @@ interface IButton {
     text: string;
     startIcon?: ReactElement;
     width: "auto" | "full"
-    onClick?: () => void
+    onClick?: () => void;
 }
 
 const variantStyles = {
@@ -17,7 +17,7 @@ const variantStyles = {
 const sizeVariants = {
     "sm": "px-3.5 py-1",
     "md": "px-3.5 py-1.5",
-    "lg": "px-4.5 py-2",
+    "lg": "md:px-4.5 px-3.5 md:py-2 py-1.5",
     "xl": "px-5 py-2",
 }
 
@@ -32,7 +32,7 @@ const Button = (props: IButton) => {
         onClick={props.onClick}
         className={`flex justify-center items-center gap-2 ${widthVariants[props.width]} ${sizeVariants[props.size]} ${variantStyles[props.variant]} text-base rounded-lg cursor-pointer`}>
             {props.startIcon && <span className="text-[1.1rem]">{props.startIcon}</span>}
-            <span className="md:block hidden">{props.text}</span>
+            <span>{props.text}</span>
         </button>
     )
 }

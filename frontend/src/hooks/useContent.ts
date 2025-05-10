@@ -1,6 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { ICard } from "../components/utils"
+import { BACKEND_URL } from "../config"
 
 export const useContent = (type? : string) => {
     const [content, setContent] = useState<ICard[]>([])
@@ -9,9 +10,13 @@ export const useContent = (type? : string) => {
 
         try{
             const url = type === "All"
-                        ? `http://localhost:3000/api/v1/content`
-                        : `http://localhost:3000/api/v1/content?type=${type}`
-            const response = await axios.get(url)
+                        ? `${BACKEND_URL}/content`
+                        : `${BACKEND_URL}/content?type=${type}`
+            const response = await axios.get(url, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                }
+            })
             // console.log(response.data.content)
             setContent(response.data.content)
         }catch (error) {
@@ -22,6 +27,28 @@ export const useContent = (type? : string) => {
     useEffect(() => {
         fetchContent()
     }, [type])
+
+    return {content, fetchContent}
+}
+
+export function useShareContent(shareId?: string){
+
+    const [content, setContent] = useState<ICard[]>([])
+
+    const fetchContent = async () => {
+
+        try{
+            const response = await axios.get(`${BACKEND_URL}/link/brain/${shareId}`)
+            // console.log(response.data.content)
+            setContent(response.data.content)
+        }catch (error) {
+            console.error("Failed to fetch content", error)
+        }
+    }
+
+    useEffect(() => {
+        fetchContent()
+    }, [])
 
     return {content, fetchContent}
 }

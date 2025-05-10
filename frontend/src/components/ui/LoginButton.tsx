@@ -34,7 +34,7 @@ const LoginButton = (props: IButton) => {
             {props.loading ? (
                 <Spinner />
             ) : (
-                <span className="md:block hidden">{props.text}</span>
+                <span>{props.text}</span>
             )}
         </button>
     )

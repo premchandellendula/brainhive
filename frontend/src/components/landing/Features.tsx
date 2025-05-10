@@ -41,15 +41,15 @@ const Features = () => {
     return (
         <div className="w-[90%] mx-auto py-16">
             <div className="mb-12 lg:mb-16">
-                <h2 className="text-center text-4xl font-bold my-4">Save Everything That Matters</h2>
-                <p className="text-gray-500 text-[1.125rem] text-muted-foreground max-w-2xl mx-auto text-center">BrainHive helps you capture and organize content from anywhere on the web, creating your personal knowledge database.</p>
+                <h2 className="text-center text-3xl md:text-4xl font-bold my-4">Save Everything That Matters</h2>
+                <p className="text-gray-500 text-[1rem] sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto text-center">BrainHive helps you capture and organize content from anywhere on the web, creating your personal knowledge database.</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                 {features.map((feature, idx) => (
                     <div key={idx} className="rounded-lg p-6 border border-gray-300 shadow-lg hover:bg-blue-200/70">
-                        <div className="rounded-full bg-blue-300/30 text-blue-600 p-3 w-12 h-12 flex items-center justify-center mb-4">{feature.icon}</div>
-                        <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                        <p className="text-gray-500">{feature.description}</p>
+                        <div className="rounded-full bg-blue-300/30 text-blue-600 p-3 w-10 lg:w-12 h-10 lg:h-12 flex items-center justify-center mb-4">{feature.icon}</div>
+                        <h3 className="text-[1.1rem] lg:text-xl font-semibold mb-2">{feature.title}</h3>
+                        <p className="text-[0.95rem] lg:text-[1rem] text-gray-500">{feature.description}</p>
                     </div>
                 ))}
 

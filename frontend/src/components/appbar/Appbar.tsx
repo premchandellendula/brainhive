@@ -9,11 +9,11 @@ const Appbar = () => {
                 <Link to={'/'}>
                     <div className="flex items-center gap-1">
                         <BrainIcon />
-                        <h2 className="text-[1.6rem] font-semibold">BrainHive</h2>
+                        <h2 className="md:text-[1.6rem] text-[1.2rem] font-semibold">BrainHive</h2>
                     </div>
                 </Link>
                 <div className="flex gap-2">
-                    <Link to={'/signin'}>
+                    <Link to={'/signin'} className="hidden md:block">
                         <Button text="Signin" variant="secondary" size="lg" width="auto" />
                     </Link>
                     <Link to={'/signup'}>

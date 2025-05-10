@@ -2,15 +2,15 @@ import express, { Request, Response } from 'express';
 import zod from 'zod';
 import { authMiddleware } from '../../middlewares/authMiddleware';
 import { Content, Link, User } from '../../db';
+import { getHashAndType, getShareId } from '../../config';
 const router = express.Router()
 
 const linkBody = zod.object({
     share: zod.boolean()
 })
 
-router.post("/share/:contentId", authMiddleware, async (req: Request, res: Response) => {
+router.post("/share", authMiddleware, async (req: Request, res: Response) => {
     const response = linkBody.safeParse(req.body);
-    const { contentId } = req.params
 
     if(!response.success){
         res.status(400).json({
@@ -32,7 +32,7 @@ router.post("/share/:contentId", authMiddleware, async (req: Request, res: Respo
             return;
         }
 
-        const hash = contentId;
+        const hash = getShareId(req.userId as string);
 
         await Link.create({
             hash: hash,
@@ -70,24 +70,20 @@ router.get('/brain/:shareLink', async (req: Request, res: Response) => {
     }
 
     try{
-        const content = await Content.findOne({
-            _id: hash
-        }) 
+        const userId = getHashAndType(hash)
 
-        const user = await User.findOne({
-            _id: link.userId
-        })
+        const username = await User.findOne({
+            _id: userId
+        }).populate("username")
 
-        if(!user){
-            res.status(400).json({
-                message: "User not found, check the link"
-            })
-            return;
-        }
+        const content = await Content.find({userId: userId})
+                                        .populate("tags")
+                                        .populate("userId", "username")
+
 
         res.status(200).json({
-            username: user.username,
-            content
+            content,
+            username
         })
     }catch(err){
         res.status(500).json({
