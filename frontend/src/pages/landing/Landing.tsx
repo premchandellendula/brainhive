@@ -5,7 +5,7 @@ import Hero from "../../components/landing/Hero"
 
 const Landing = () => {
     return (
-        <div className="min-h-screen font-inter">
+        <div className="min-h-screen font-inter px-4 sm:px-6 md:px-8">
             <Appbar />
             <Hero />
             <Features />

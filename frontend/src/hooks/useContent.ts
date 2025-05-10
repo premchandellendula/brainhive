@@ -12,7 +12,11 @@ export const useContent = (type? : string) => {
             const url = type === "All"
                         ? `${BACKEND_URL}/content`
                         : `${BACKEND_URL}/content?type=${type}`
-            const response = await axios.get(url)
+            const response = await axios.get(url, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                }
+            })
             // console.log(response.data.content)
             setContent(response.data.content)
         }catch (error) {

@@ -72,13 +72,18 @@ router.get('/brain/:shareLink', async (req: Request, res: Response) => {
     try{
         const userId = getHashAndType(hash)
 
+        const username = await User.findOne({
+            _id: userId
+        }).populate("username")
+
         const content = await Content.find({userId: userId})
                                         .populate("tags")
                                         .populate("userId", "username")
 
 
         res.status(200).json({
-            content
+            content,
+            username
         })
     }catch(err){
         res.status(500).json({

@@ -11,7 +11,7 @@ const Brain = () => {
     return (
         <div className="flex min-h-screen">
             <SideBar selectedType={selectedType} setSelectedType={setSelectedType} />
-            <div className="flex-1 p-6 ml-64">
+            <div className="flex-1 p-6 ml-16 lg:ml-64">
                 <TopBar fetchContent={fetchContent} />
                 <Content content={content} fetchContent={fetchContent} />
             </div>

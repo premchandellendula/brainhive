@@ -34,9 +34,9 @@ const ShareContentDialog = ({isShareDialogOpen, setIsShareDialogOpen}: IShareCon
         }
     }
     return (
-        <div className="fixed inset-0 min-h-screen w-full flex justify-center items-center z-50 bg-black/80">
-            <div className="bg-white w-xl flex flex-col rounded-md p-6">
-                <div className="w-full ">
+        <div className="fixed inset-0 min-h-screen md:w-full flex justify-center items-center z-50 bg-black/80">
+            <div className="bg-white w-[80%] md:w-xl flex flex-col rounded-md p-6">
+                <div className="md:w-full ">
                     <div className="flex justify-between">
                         <h2 className="text-base font-semibold">Share Content</h2>
                         <Cross onClick={() => { 
@@ -46,7 +46,7 @@ const ShareContentDialog = ({isShareDialogOpen, setIsShareDialogOpen}: IShareCon
                     </div>
                     <div className="my-4 text-base font-semibold flex items-center relative">
                         <span>Link: </span> 
-                        <p ref={paragraphRef} className="text-blue-600 p-2 bg-blue-200 w-full rounded-md">{link ? `http://localhost:5173/brain/${link}` : "Not shared yet"}</p>
+                        <p ref={paragraphRef} className="text-blue-600 p-2 bg-blue-200 w-[80%] md:w-full rounded-md overflow-hidden">{link ? `http://localhost:5173/brain/${link}` : "Not shared yet"}</p>
                         <span onClick={handleCopy} className="absolute right-2 top-2.5 fill-blue-400 z-50 active:fill-blue-500"><CopyIcon /></span>
                     </div>
                     <div p-2 bg-blue-200 className="flex justify-end">

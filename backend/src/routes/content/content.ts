@@ -55,10 +55,10 @@ router.post("/", authMiddleware, async (req: Request, res: Response) => {
     }
 })
 
-router.get('/', async (req: Request, res: Response) => {
+router.get('/', authMiddleware, async (req: Request, res: Response) => {
     const { type } = req.query
     try{
-        const filter: any = {};
+        const filter: any = {userId: req.userId};
 
         if (type) {
             const formattedType = String(type).toLowerCase().slice(0, -1);
