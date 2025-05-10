@@ -1,4 +1,5 @@
-require('dotenv').config();
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 import mongoose, { ConnectOptions, Document } from "mongoose";
 const value = process.env.DATABASE_URI as string
