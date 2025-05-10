@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import Cross from "../icons/Cross"
 import { toast } from "sonner"
 import axios from "axios"
-import { BACKEND_URL } from "../../config"
+import { BACKEND_URL, WEB_URL } from "../../config"
 import CopyIcon from "../icons/CopyIcon"
 
 interface IShareContent {
@@ -46,7 +46,7 @@ const ShareContentDialog = ({isShareDialogOpen, setIsShareDialogOpen}: IShareCon
                     </div>
                     <div className="my-4 text-base font-semibold flex items-center relative">
                         <span>Link: </span> 
-                        <p ref={paragraphRef} className="text-blue-600 p-2 bg-blue-200 w-[80%] md:w-full rounded-md overflow-hidden">{link ? `http://localhost:5173/brain/${link}` : "Not shared yet"}</p>
+                        <p ref={paragraphRef} className="text-blue-600 p-2 bg-blue-200 w-[80%] md:w-full rounded-md overflow-hidden">{link ? `${WEB_URL}/brain/${link}` : "Not shared yet"}</p>
                         <span onClick={handleCopy} className="absolute right-2 top-2.5 fill-blue-400 z-50 active:fill-blue-500"><CopyIcon /></span>
                     </div>
                     <div p-2 bg-blue-200 className="flex justify-end">
